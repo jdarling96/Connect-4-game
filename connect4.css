@@ -1,11 +1,29 @@
 /* game board table */
+body{
+  display: flex;
+  flex-direction: column;
+  background: beige;
+  justify-content: center;
+}
 
+#game{
+  position: relative;
+  margin-top: 10%;
+  align-self: center;
+  
+  
+ 
+
+}
 #board td {
   width: 50px;
   height: 50px;
-  border: solid 1px #666;
+  border: solid 1px rgb(3, 3, 3);
   position: relative;
+  align-self: center;
   
+  animation: slide 500ms ease-in-out;
+ 
   
   
 }
@@ -50,7 +68,7 @@
 /* column-top is table row of clickable areas for each column */
 
 #column-top td {
-  border: dashed 1px lightgray;
+  border: dashed 1px rgb(139, 135, 135);
   position: relative;
   animation: growDown 300ms ease-in-out
 }
@@ -68,5 +86,13 @@
 
 #column-top td:hover {
   background-color: gold;
+}
+h2{
+  align-self: center;
+  color: lightcoral;
+  font-family: 'Neonderthaw', cursive;
+  font-size: xx-large ;
+  margin-top: 2%;
+
 }
  
