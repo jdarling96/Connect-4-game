@@ -23,7 +23,7 @@ for(let i = 0; i < HEIGHT; i++){                       // itterate over array in
   arr[i] = Array.apply(null, Array(WIDTH))             //arr[i] creates new array and uses apply method to get undefinded and the WIDTH number of subarrays
 };
 board = arr;                                            //board var = array created above
-console.log(board);
+//console.log(board);
 }
 
 
@@ -69,7 +69,12 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  for (let y = HEIGHT - 1; y >= 0; y--) {
+      if (!board[y][x]) {
+        return y;
+      }
+    }
+    return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -79,11 +84,11 @@ function placeInTable(y, x) {
   const piece = document.createElement('div')
   piece.classList.add('piece')
   piece.classList.add(`p${currPlayer}`)
-  const spot = document.getElementById(`${y}-${x}`)
-  //get cell with an index id of y-x
-  spot.append(piece);
-  //append our piece to that cell
   
+  //get cell with an index id of y-x
+  const spot = document.getElementById(`${y}-${x}`)
+  //append our piece to that cell
+  spot.append(piece);
 
  
 }
@@ -92,22 +97,29 @@ function placeInTable(y, x) {
 
 function endGame(msg) {
   // TODO: pop up alert message
+  alert(msg)
 }
 
 /** handleClick: handle click of column top to play piece */
-
+//next we need to update our board withe the player piece
 function handleClick(evt) {
   // get x from ID of clicked cell
-  var x = +evt.target.id;
-
-  // get next spot in column (if none, ignore click)
-  var y = findSpotForCol(x);
+  const x = +evt.target.id;
+  //console.log(x)
+  
+  // console.log(board[i])
+  //console.log(x);
+  
+  // get next spot in column (if none, ignore click
+  let y = findSpotForCol(x);
   if (y === null) {
     return;
   }
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
+ board[y][x] = currPlayer
+ // my understading is x is set to evt.target.id wich gives us a number and y is currently set to 0
   placeInTable(y, x);
 
   // check for win
@@ -117,9 +129,26 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
+  /*board[x].every((val, x) => {
+     val = currPlayer
+    if(x === val) return endGame
+  }) */
+  
+  
+
+  for(let i = 0; i < board.length; i++){
+    board[i].every((val, x)=> {
+      //console.log(board[i])
+      val = currPlayer
+     if(board[i].every(val) === val) return endGame('tie')
+     
+    })
+  } 
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+  currPlayer === 1 ? currPlayer++ : currPlayer--;
+  //console.log(currPlayer);
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
