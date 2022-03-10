@@ -136,14 +136,10 @@ function handleClick(evt) {
   
   
 
-  for(let i = 0; i < board.length; i++){
-    board[i].every((val, x)=> {
-      //console.log(board[i])
-      val = currPlayer
-     if(board[i].every(val) === val) return endGame('tie')
-     
-    })
-  } 
+  
+    
+  if(board.every((row) => row.every((cell) => cell))) return endGame('tie')
+  
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
